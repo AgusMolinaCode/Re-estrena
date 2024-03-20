@@ -1,4 +1,4 @@
-import React, { startTransition, useState } from "react";
+import React, { startTransition, useEffect, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -19,6 +19,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Input } from "../ui/input";
+import { createCategory, getAllCategories } from "@/lib/actions/category.actions";
 
 type DropdownProps = {
   value?: string;
@@ -28,9 +29,25 @@ type DropdownProps = {
 const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
   const [categories, setCategories] = useState<ICategory[]>([]);
   const [newCategory, setNewCategory] = useState<string>("");
+
   const handleAddCategory = () => {
-    console.log(newCategory);
+    createCategory({
+      categoryName: newCategory.trim(),
+    })
+      .then((category) => {
+        setCategories((prevState)=>[...categories, category]);
+      })
+      .catch((err) => console.log(err));
   };
+
+  useEffect(() => {
+    const getCategories = async () => {
+      const categoryList = await getAllCategories();
+      categoryList && setCategories(categoryList as ICategory[]);
+    };
+    getCategories();
+  } , []);
+
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
       <SelectTrigger className="select-field">

@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <header className='w-full border-b'>
         <div className='wrapper flex items-center justify-between'>
-            <Link href='/' className='w-36'>
+            <Link href='/' className=''>
                 <Image src='/assets/images/logo.svg' alt='Fiesta Logo' width={144} height={36} />
             </Link>
             
