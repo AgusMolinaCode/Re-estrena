@@ -10,6 +10,6 @@ export const eventFormSchema = z.object({
     categoryId: z.string(),
     price: z.string(),
     isFree: z.boolean(),
-    url: z.string().url({ message: "URL must be a valid URL" }),
+    url: z.string(),
   });
 
