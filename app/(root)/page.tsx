@@ -1,20 +1,26 @@
+import CategoryFilter from "@/components/shared/CategoryFilter";
 import Collection from "@/components/shared/Collection";
 import Search from "@/components/shared/Search";
 import { Button } from "@/components/ui/button";
 import { getAllEvents } from "@/lib/actions/event.actions";
+import Category from "@/lib/mongodb/database/models/category.models";
+import { SearchParamProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function Home({searchParams}:SearchParamProps) {
+
+  const page = Number(searchParams?.page) || 1;
+  const searchText = (searchParams?.query as string) || "";
+  const category = (searchParams?.category as string) || "";
 
   const events = await getAllEvents({
-     query: "",
-     category: "",
-     page: 1,
+     query: searchText,
+     category,
+     page,
      limit: 5,
     });
 
-    console.log(events);
 
   return (
     <>
@@ -48,7 +54,7 @@ export default async function Home() {
         <h2 className="h2-bold">Upcoming Events</h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
           <Search placeholder="Search events..." />
-          Category Filter
+          <CategoryFilter />
         </div>
 
         <Collection 
@@ -57,8 +63,8 @@ export default async function Home() {
           emptyStateSubtext="Create an event to get started"
           collectionType="All_Events"
           limit={5}
-          page={1}
-          totalPages={2}
+          page={page}
+          totalPages={events?.totalPages}
         />
       </section>
     </>
