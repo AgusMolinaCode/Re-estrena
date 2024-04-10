@@ -25,12 +25,12 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
 
   const onCheckout = async () => {
     const order = {
-        eventTitle: event.title,
-        eventId: event._id,
-        price: event.price,
-        isFree: event.isFree,
-        buyerId: userId,
-    }
+      eventTitle: event.title,
+      eventId: event._id,
+      price: event.price,
+      isFree: event.isFree,
+      buyerId: userId,
+    };
 
     await checkoutOrder(order);
   };
@@ -38,7 +38,7 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
   return (
     <form action={onCheckout} method="post">
       <button type="submit">
-        {event.isFree ? "Get Ticket" : "Buy Ticket"}
+        {event.isFree ? "Get Ticket Stripe" : "Buy Ticket Stripe"}
       </button>
     </form>
   );

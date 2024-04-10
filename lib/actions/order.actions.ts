@@ -1,53 +1,99 @@
-"use server"
+"use server";
 
-import Stripe from 'stripe';
-import { CheckoutOrderParams, CreateOrderParams, GetOrdersByEventParams, GetOrdersByUserParams } from "@/types"
-import { redirect } from 'next/navigation';
-import { handleError } from '../utils';
-import { connectToDatabase } from '../mongodb/database';
-import Order from '../mongodb/database/models/order.model';
-import Event from '../mongodb/database/models/event.model';
-import {ObjectId} from 'mongodb';
-import User from '../mongodb/database/models/user.model';
+import Stripe from "stripe";
+import {
+  CheckoutOrderParams,
+  CreateOrderParams,
+  GetOrdersByEventParams,
+  GetOrdersByUserParams,
+} from "@/types";
+import { redirect } from "next/navigation";
+import { handleError } from "../utils";
+import { connectToDatabase } from "../mongodb/database";
+import Order from "../mongodb/database/models/order.model";
+import Event from "../mongodb/database/models/event.model";
+import { ObjectId } from "mongodb";
+import User from "../mongodb/database/models/user.model";
+import { MercadoPagoConfig, Preference } from "mercadopago";
 
 export const checkoutOrder = async (order: CheckoutOrderParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const price = order.isFree ? 0 : Number(order.price) * 100;
+  const price = order.isFree ? 0 : Number(order.price);
 
   try {
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
           price_data: {
-            currency: 'usd',
+            currency: "ars",
             unit_amount: price,
             product_data: {
-              name: order.eventTitle
-            }
+              name: order.eventTitle,
+            },
           },
-          quantity: 1
+          quantity: 1,
         },
       ],
       metadata: {
         eventId: order.eventId,
         buyerId: order.buyerId,
       },
-      mode: 'payment',
+      mode: "payment",
       success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
 
-    redirect(session.url!)
+    redirect(session.url!);
   } catch (error) {
     throw error;
   }
-}
+};
+
+export const checkoutOrderMercadoPago = async (order: CheckoutOrderParams) => {
+
+  const price = order.isFree ? 0 : Number(order.price);
+
+  try {
+    const client = new MercadoPagoConfig({
+      accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN!,
+    });
+
+    const preference = await new Preference(client)
+      .create({
+        body: {
+          items: [
+            {
+              id: order.eventId,
+              title: order.eventTitle,
+              quantity: 1,
+              unit_price: price,
+            },
+          ],
+          back_urls: {
+            success: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
+            failure: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
+            pending: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
+          },
+          metadata: {
+            eventId: order.eventId,
+            buyerId: order.buyerId,
+          },
+        },
+      });
+
+      
+    redirect(preference.sandbox_init_point!);
+  } catch (error) {
+    console.error('Error al procesar el pedido con Mercado Pago:', error);
+    throw error; // Re-lanza el error para que pueda ser manejado por el código que llama a esta función
+  }
+};
 
 export const createOrder = async (order: CreateOrderParams) => {
   try {
     await connectToDatabase();
-    
+
     const newOrder = await Order.create({
       ...order,
       event: order.eventId,
@@ -58,91 +104,106 @@ export const createOrder = async (order: CreateOrderParams) => {
   } catch (error) {
     handleError(error);
   }
-}
+};
 
 // GET ORDERS BY EVENT
-export async function getOrdersByEvent({ searchString, eventId }: GetOrdersByEventParams) {
+export async function getOrdersByEvent({
+  searchString,
+  eventId,
+}: GetOrdersByEventParams) {
   try {
-    await connectToDatabase()
+    await connectToDatabase();
 
-    if (!eventId) throw new Error('Event ID is required')
-    const eventObjectId = new ObjectId(eventId)
+    if (!eventId) throw new Error("Event ID is required");
+    const eventObjectId = new ObjectId(eventId);
 
     const orders = await Order.aggregate([
       {
         $lookup: {
-          from: 'users',
-          localField: 'buyer',
-          foreignField: '_id',
-          as: 'buyer',
+          from: "users",
+          localField: "buyer",
+          foreignField: "_id",
+          as: "buyer",
         },
       },
       {
-        $unwind: '$buyer',
+        $unwind: "$buyer",
       },
       {
         $lookup: {
-          from: 'events',
-          localField: 'event',
-          foreignField: '_id',
-          as: 'event',
+          from: "events",
+          localField: "event",
+          foreignField: "_id",
+          as: "event",
         },
       },
       {
-        $unwind: '$event',
+        $unwind: "$event",
       },
       {
         $project: {
           _id: 1,
           totalAmount: 1,
           createdAt: 1,
-          eventTitle: '$event.title',
-          eventId: '$event._id',
+          eventTitle: "$event.title",
+          eventId: "$event._id",
           buyer: {
-            $concat: ['$buyer.firstName', ' ', '$buyer.lastName'],
+            $concat: ["$buyer.firstName", " ", "$buyer.lastName"],
           },
         },
       },
       {
         $match: {
-          $and: [{ eventId: eventObjectId }, { buyer: { $regex: RegExp(searchString, 'i') } }],
+          $and: [
+            { eventId: eventObjectId },
+            { buyer: { $regex: RegExp(searchString, "i") } },
+          ],
         },
       },
-    ])
+    ]);
 
-    return JSON.parse(JSON.stringify(orders))
+    return JSON.parse(JSON.stringify(orders));
   } catch (error) {
-    handleError(error)
+    handleError(error);
   }
 }
 
 // GET ORDERS BY USER
-export async function getOrdersByUser({ userId, limit = 3, page }: GetOrdersByUserParams) {
+export async function getOrdersByUser({
+  userId,
+  limit = 3,
+  page,
+}: GetOrdersByUserParams) {
   try {
-    await connectToDatabase()
+    await connectToDatabase();
 
-    const skipAmount = (Number(page) - 1) * limit
-    const conditions = { buyer: userId }
+    const skipAmount = (Number(page) - 1) * limit;
+    const conditions = { buyer: userId };
 
-    const orders = await Order.distinct('event._id')
+    const orders = await Order.distinct("event._id")
       .find(conditions)
-      .sort({ createdAt: 'desc' })
+      .sort({ createdAt: "desc" })
       .skip(skipAmount)
       .limit(limit)
       .populate({
-        path: 'event',
+        path: "event",
         model: Event,
         populate: {
-          path: 'organizer',
+          path: "organizer",
           model: User,
-          select: '_id firstName lastName',
+          select: "_id firstName lastName",
         },
-      })
+      });
 
-    const ordersCount = await Order.distinct('event._id').countDocuments(conditions)
+    const ordersCount = await Order.distinct("event._id").countDocuments(
+      conditions
+    );
 
-    return { data: JSON.parse(JSON.stringify(orders)), totalPages: Math.ceil(ordersCount / limit) }
+    return {
+      data: JSON.parse(JSON.stringify(orders)),
+      totalPages: Math.ceil(ordersCount / limit),
+    };
   } catch (error) {
-    handleError(error)
+    handleError(error);
   }
 }
