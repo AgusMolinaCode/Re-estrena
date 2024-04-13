@@ -19,7 +19,7 @@ import { MercadoPagoConfig, Preference } from "mercadopago";
 export const checkoutOrder = async (order: CheckoutOrderParams) => {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const price = order.isFree ? 0 : Number(order.price);
+  const price = order.isFree ? 0 : Number(order.price) * 100;
 
   try {
     const session = await stripe.checkout.sessions.create({
@@ -84,6 +84,7 @@ export const checkoutOrderMercadoPago = async (order: CheckoutOrderParams) => {
 
       
     redirect(preference.sandbox_init_point!);
+    console.log(preference);
   } catch (error) {
     console.error('Error al procesar el pedido con Mercado Pago:', error);
     throw error; // Re-lanza el error para que pueda ser manejado por el código que llama a esta función
