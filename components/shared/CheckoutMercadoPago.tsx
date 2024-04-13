@@ -24,18 +24,18 @@ const CheckoutMercadoPago = ({
 
   const onCheckout = async () => {
     const order = {
-        eventTitle: event.title,
-        eventId: event._id,
-        price: event.price,
-        isFree: event.isFree,
-        buyerId: userId,
-      };
-      
-      await checkoutOrderMercadoPago(order);
+      eventTitle: event.title,
+      eventId: event._id,
+      price: event.price,
+      isFree: event.isFree,
+      buyerId: userId,
+    };
+
+    await checkoutOrderMercadoPago(order);
   };
 
   return (
-    <form action={onCheckout}>
+    <form action={onCheckout} method="POST">
       <button type="submit">
         {event.isFree ? "Get Ticket MercadoPago" : "Buy Ticket MercadoPago"}
       </button>
