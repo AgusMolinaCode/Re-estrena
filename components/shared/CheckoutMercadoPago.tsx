@@ -35,7 +35,7 @@ const CheckoutMercadoPago = ({
   };
 
   return (
-    <form action={onCheckout} method="POST">
+    <form action={onCheckout}>
       <button type="submit">
         {event.isFree ? "Get Ticket MercadoPago" : "Buy Ticket MercadoPago"}
       </button>

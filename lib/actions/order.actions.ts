@@ -40,7 +40,7 @@ export const checkoutOrder = async (order: CheckoutOrderParams) => {
         buyerId: order.buyerId,
       },
       mode: "payment",
-      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
+      success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
       cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
     });
 
@@ -71,9 +71,9 @@ export const checkoutOrderMercadoPago = async (order: CheckoutOrderParams) => {
             },
           ],
           back_urls: {
-            success: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
-            failure: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
-            pending: `${process.env.NEXT_PUBLIC_SERVER_URL}/profile`,
+            success: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
+            failure: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
+            pending: `${process.env.NEXT_PUBLIC_SERVER_URL}/`,
           },
           metadata: {
             eventId: order.eventId,
@@ -84,7 +84,6 @@ export const checkoutOrderMercadoPago = async (order: CheckoutOrderParams) => {
 
       
     redirect(preference.sandbox_init_point!);
-    console.log(preference);
   } catch (error) {
     console.error('Error al procesar el pedido con Mercado Pago:', error);
     throw error; // Re-lanza el error para que pueda ser manejado por el código que llama a esta función

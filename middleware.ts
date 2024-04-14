@@ -6,11 +6,13 @@ export default authMiddleware({
     '/events/:id',
     '/api/webhook/clerk',
     '/api/webhook/stripe',
+    '/api/webhook/mercadopago',
     '/api/uploadthing'
   ],
   ignoredRoutes: [
     '/api/webhook/clerk',
     '/api/webhook/stripe',
+    '/api/webhook/mercadopago',
     '/api/uploadthing'
   ]
 });
