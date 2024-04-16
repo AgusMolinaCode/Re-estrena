@@ -14,8 +14,8 @@ const NavItems = () => {
         return (
           <li
             key={index}
-            className={`text-lg font-medium ${
-              isActive ? "text-primary" : "text-gray-500"
+            className={`text-xl font-medium ${
+              isActive ? "underline" : "text-gray-900"
             }`}
           >
             <Link href={link.route}>{link.label}</Link>

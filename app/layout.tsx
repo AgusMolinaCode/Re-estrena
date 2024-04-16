@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Bebas_Neue } from "next/font/google";
 
-const poppins = Poppins({
+const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
+  weight: ["400"],
+  variable: "--font-bebas-neue",
 });
 
 export const metadata: Metadata = {
-  title: "Fiesta",
-  description: "Fiesta is a party planning app.",
+  title: "Re-estrena",
+  description:
+    "Re-estrena es una plataforma para comprar y vender ropa de segunda mano. ¡Únete a la moda sostenible!",
   icons: {
-    icon: "/assets/images/logo.svg",
+    icon: "/assets/icons/clothes.svg",
   },
 };
 
@@ -25,7 +26,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={poppins.className}>{children}</body>
+        <body className={bebasNeue.className}>{children}</body>
       </html>
     </ClerkProvider>
   );
