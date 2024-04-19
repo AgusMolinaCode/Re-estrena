@@ -25,13 +25,14 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
     <div>
       <div>
         <div className="grid-cols-3">
-          <div>
+          <div className="">
             <Link href={`/events/${event._id}`}>
               <Image
                 src={event.imageUrl}
                 alt={event.title}
-                width={200}
-                height={200}
+                width={500}
+                height={500}
+                className="h-[500px] w-[500px] object-center rounded-3xl cursor-pointer"
               />
             </Link>
           </div>
