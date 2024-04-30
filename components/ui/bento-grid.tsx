@@ -27,12 +27,14 @@ export const BentoGridItem = ({
   description,
   header,
   icon,
+  link,
 }: {
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
   header?: React.ReactNode;
   icon?: React.ReactNode;
+  link?: string;
 }) => {
   return (
     <div
@@ -46,7 +48,7 @@ export const BentoGridItem = ({
           "items-center": className?.includes("col-span-2"),
         })}
       >
-        <Link href={`/collections/${title}`}>
+        <Link href={link || "/"}>
           <div className="relative object-center object-cover w-full h-full">
             {header}
             <div className="absolute inset-0 bg-black bg-opacity-30 group-hover:bg-opacity-50 transition-opacity duration-200" />

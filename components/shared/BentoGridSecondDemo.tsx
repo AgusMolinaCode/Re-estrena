@@ -12,6 +12,7 @@ export function BentoGridSecondDemo() {
           header={item.header}
           title={item.title}
           className={item.className}
+          link={item.link}
         />
       ))}
     </BentoGrid>
@@ -29,6 +30,7 @@ const items = [
       />
     ),
     className: "md:col-span-1",
+    link: "/collections?category=Campera"
   },
   {
     title: "Jeans",
@@ -40,6 +42,7 @@ const items = [
       />
     ),
     className: "md:col-span-2",
+    link: "/collections?category=Jeans"
   },
   {
     title: "Remeras",
@@ -51,6 +54,7 @@ const items = [
       />
     ),
     className: "md:col-span-2",
+    link: "/collections?category=Remeras"
   },
   {
     title: "Camisas",
@@ -62,5 +66,6 @@ const items = [
       />
     ),
     className: "md:col-span-1",
+    link: "/collections?category=Camisas"
   }
 ];

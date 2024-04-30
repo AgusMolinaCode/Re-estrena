@@ -1,28 +1,11 @@
 import { AuroraBackgroundDemo } from "@/components/shared/AuroraBackgroundDemo";
 import { BentoGridSecondDemo } from "@/components/shared/BentoGridSecondDemo";
-import CategoryFilter from "@/components/shared/CategoryFilter";
-import Collection from "@/components/shared/Collection";
-import EmblaCarousel from "@/components/shared/EmblaCarousel";
 import HeroInfo from "@/components/shared/HeroInfo";
-import Search from "@/components/shared/Search";
-import { Button } from "@/components/ui/button";
-import { getAllEvents } from "@/lib/actions/event.actions";
-import Category from "@/lib/mongodb/database/models/category.models";
 import { SearchParamProps } from "@/types";
-import Image from "next/image";
+
 import Link from "next/link";
 
 export default async function Home({ searchParams }: SearchParamProps) {
-  const page = Number(searchParams?.page) || 1;
-  const searchText = (searchParams?.query as string) || "";
-  const category = (searchParams?.category as string) || "";
-
-  const events = await getAllEvents({
-    query: searchText,
-    category,
-    page,
-    limit: 5,
-  });
 
   return (
     <>
@@ -40,7 +23,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
                 segunda mano, donde puedes encontrar ropa de calidad a precios
                 accesibles. ¡Únete a la comunidad!
               </p>
-              <Link href="/events">
+              <Link href="/collections">
                 <button className="group relative inline-flex h-14 w-32 items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-transparent px-6 font-medium text-neutral-600 transition-all duration-100 [box-shadow:5px_5px_rgb(82_82_82)] active:translate-x-[3px] active:translate-y-[3px] active:[box-shadow:0px_0px_rgb(82_82_82)] text-2xl">
                   Ver Más!
                 </button>
@@ -54,21 +37,15 @@ export default async function Home({ searchParams }: SearchParamProps) {
         id="events"
         className="wrapper my-8 flex flex-col gap-8 md:gap-12"
       >
-        <h2 className="h2-bold">colecciones populares</h2>
-        {/* <div className="flex w-full flex-col gap-5 md:flex-row">
-          <Search placeholder="Search events..." />
-          <CategoryFilter />
-        </div> */}
-
-        {/* <Collection
-          data={events?.data || []}
-          emptyTitle="No se encontro indumentaria"
-          emptyStateSubtext="Crear una publicacion para que otros puedan ver tus productos."
-          collectionType="All_Events"
-          limit={3}
-          page={page}
-          totalPages={events?.totalPages}
-        /> */}
+        <div className="flex gap-2 items-center">
+          <h2 className="h2-bold">colecciones populares</h2>
+          <Link href="/collections">
+                <button className="group relative inline-flex h-14 w-32 items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-transparent px-6 font-medium text-neutral-600 transition-all duration-100 [box-shadow:5px_5px_rgb(82_82_82)] active:translate-x-[3px] active:translate-y-[3px] active:[box-shadow:0px_0px_rgb(82_82_82)] text-2xl">
+                  Ver todo
+                </button>
+              </Link>
+        </div>
+        
 
         <BentoGridSecondDemo />
 
