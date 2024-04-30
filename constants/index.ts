@@ -5,7 +5,7 @@ export const headerLinks = [
     },
     {
       label: 'Vender',
-      route: '/events/create',
+      route: '/publicaciones/create',
     },
     {
       label: 'Mi cuenta',

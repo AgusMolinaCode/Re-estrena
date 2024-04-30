@@ -34,7 +34,7 @@ export default async function Home({ searchParams }: SearchParamProps) {
       </section>
 
       <section
-        id="events"
+        id="publicaciones"
         className="wrapper my-8 flex flex-col gap-8 md:gap-12"
       >
         <div className="flex gap-2 items-center">

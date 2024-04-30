@@ -26,7 +26,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
       <div>
         <div className="grid-cols-3">
           <div className="">
-            <Link href={`/events/${event._id}`}>
+            <Link href={`/publicaciones/${event._id}`}>
               <Image
                 src={event.imageUrl}
                 alt={event.title}
@@ -39,7 +39,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
 
           {isEventCreator && !hidePrice && (
             <div>
-              <Link href={`/events/${event._id}/update`}>
+              <Link href={`/publicaciones/${event._id}/update`}>
                 <span className="bg-blue-500 p-1 px-3 rounded-3xl">Edit</span>
               </Link>
 

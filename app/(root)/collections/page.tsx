@@ -20,7 +20,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
     <div>
       <h1 className="font-bold text-4xl text-center pt-6">Coleccion</h1>
       <div className="flex w-full flex-col gap-5 md:flex-row">
-        <Search placeholder="Search events..." />
+        <Search placeholder="Buscar publicaciones..." />
         <CategoryFilter />
       </div>
 
