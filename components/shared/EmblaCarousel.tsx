@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useCallback, useEffect, useState } from "react";
-import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 import {
   PrevButton,
   NextButton,
@@ -15,13 +14,13 @@ import AutoScroll from "embla-carousel-auto-scroll";
 import Link from "next/link";
 
 type PropType = {
-  slides: number[];
-  options?: EmblaOptionsType;
+  //slides: number[];
   data: IEvent[];
+  options?: EmblaOptionsType;
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options, data } = props;
+  const { options, data } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options, [
     AutoScroll({ playOnInit: true, speed: 1 }),
   ]);
@@ -40,36 +39,36 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
       if (!autoScroll) return;
 
       const resetOrStop =
-        autoScroll.options.stopOnInteraction === false
+        autoScroll.options.active === false
           ? autoScroll.reset
           : autoScroll.stop;
 
-      resetOrStop();
+      (resetOrStop as () => void)();
       callback();
     },
     [emblaApi]
   );
 
-  const toggleAutoplay = useCallback(() => {
-    const autoScroll = emblaApi?.plugins()?.autoScroll;
-    if (!autoScroll) return;
+  // const toggleAutoplay = useCallback(() => {
+  //   const autoScroll = emblaApi?.plugins()?.autoScroll;
+  //   if (!autoScroll) return;
 
-    const playOrStop = autoScroll.isPlaying()
-      ? autoScroll.stop
-      : autoScroll.play;
-    playOrStop();
-  }, [emblaApi]);
+  //   const playOrStop = (autoScroll.isPlaying as () => boolean)()
+  //     ? autoScroll.stop
+  //     : autoScroll.play;
+  //   playOrStop();
+  // }, [emblaApi]);
 
-  useEffect(() => {
-    const autoScroll = emblaApi?.plugins()?.autoScroll;
-    if (!autoScroll) return;
+  // useEffect(() => {
+  //   const autoScroll = emblaApi?.plugins()?.autoScroll;
+  //   if (!autoScroll) return;
 
-    setIsPlaying(autoScroll.isPlaying());
-    emblaApi
-      .on("autoScroll:play", () => setIsPlaying(true))
-      .on("autoScroll:stop", () => setIsPlaying(false))
-      .on("reInit", () => setIsPlaying(autoScroll.isPlaying()));
-  }, [emblaApi]);
+  //   setIsPlaying(autoScroll.isPlaying());
+  //   emblaApi
+  //     .on("autoScroll:play", () => setIsPlaying(true))
+  //     .on("autoScroll:stop", () => setIsPlaying(false))
+  //     .on("reInit", () => setIsPlaying(autoScroll.isPlaying()));
+  // }, [emblaApi]);
 
   return (
     <section className="embla py-8">
@@ -86,7 +85,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                 <div className="embla__slide__number">
                   <li className="flex justify-center">
                     <div className="rounded-lg">
-                      <Link href={`/events/${event._id}`}>
+                      <Link href={`/publicaciones/${event._id}`}>
                         <div>
                           <Image
                             src={event.imageUrl}
@@ -122,13 +121,13 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
           />
         </div>
 
-        <button
+        {/* <button
           onClick={toggleAutoplay}
           type="button"
           className="embla__play relative h-10 w-16 overflow-hidden rounded bg-neutral-950 px-2 py-1 text-white transition-all duration-200 hover:bg-neutral-800 hover:ring-offset-2 active:ring-2 active:ring-neutral-800"
         >
           {isPlaying ? "Stop" : "Start"}
-        </button>
+        </button> */}
       </div>
     </section>
   );

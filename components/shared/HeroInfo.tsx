@@ -22,7 +22,7 @@ const HeroInfo = async ({ searchParams }: SearchParamProps) => {
       <h2 className="h2-bold">Ultimas publicaciones</h2>
       {/* <CollectionSwiper data={events?.data || []} /> */}
       <EmblaCarousel
-        slides={[1, 2, 3, 4, 5]}
+        //slides={[1, 2, 3, 4, 5]}
         options={{ loop: true }}
         data={events?.data || []}
       />
