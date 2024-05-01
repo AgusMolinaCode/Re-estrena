@@ -6,7 +6,6 @@ import { SearchParamProps } from "@/types";
 import Link from "next/link";
 
 export default async function Home({ searchParams }: SearchParamProps) {
-
   return (
     <>
       <section className="bg-white md:py-8">
@@ -40,12 +39,11 @@ export default async function Home({ searchParams }: SearchParamProps) {
         <div className="flex gap-2 items-center">
           <h2 className="h2-bold">colecciones populares</h2>
           <Link href="/collections">
-                <button className="group relative inline-flex h-14 w-32 items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-transparent px-6 font-medium text-neutral-600 transition-all duration-100 [box-shadow:5px_5px_rgb(82_82_82)] active:translate-x-[3px] active:translate-y-[3px] active:[box-shadow:0px_0px_rgb(82_82_82)] text-2xl">
-                  Ver todo
-                </button>
-              </Link>
+            <button className="group relative inline-flex h-14 w-32 items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-transparent px-6 font-medium text-neutral-600 transition-all duration-100 [box-shadow:5px_5px_rgb(82_82_82)] active:translate-x-[3px] active:translate-y-[3px] active:[box-shadow:0px_0px_rgb(82_82_82)] text-2xl">
+              Ver todo
+            </button>
+          </Link>
         </div>
-        
 
         <BentoGridSecondDemo />
 

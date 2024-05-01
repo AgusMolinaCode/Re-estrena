@@ -14,12 +14,12 @@ const page = async ({ searchParams }: SearchParamProps) => {
     query: searchText,
     category,
     page,
-    limit: 5,
+    limit: 6,
   });
   return (
     <div>
-      <h1 className="font-bold text-4xl text-center pt-6">Coleccion</h1>
-      <div className="flex w-full flex-col gap-5 md:flex-row">
+      <h1 className="font-bold text-4xl py-6">Coleccion</h1>
+      <div className="flex w-full flex-col gap-5 md:flex-row max-w-xl">
         <Search placeholder="Buscar publicaciones..." />
         <CategoryFilter />
       </div>
@@ -29,7 +29,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
         emptyTitle="No se encontro indumentaria"
         emptyStateSubtext="Crear una publicacion para que otros puedan ver tus productos."
         collectionType="All_Events"
-        limit={5}
+        limit={6}
         page={page}
         totalPages={events?.totalPages}
       />

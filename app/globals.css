@@ -183,7 +183,7 @@ body {
   }
 
   .p-regular-16 {
-    @apply text-[16px] font-normal leading-[24px];
+    @apply text-[16px] font-normal leading-[24px] text-gray-500;
   }
 
   /* 14 */
@@ -206,7 +206,7 @@ body {
 
   /* SHADCN OVERRIDES */
   .select-field {
-    @apply w-full bg-grey-50 h-[54px] placeholder:text-grey-500 rounded-full p-regular-16 px-5 py-3 border-none focus-visible:ring-transparent focus:ring-transparent !important;
+    @apply w-full bg-grey-50 h-[58px] placeholder:text-grey-500 rounded-xl p-regular-16 px-4 py-3 border border-gray-200 focus-visible:ring-transparent focus:ring-transparent !important;
   }
 
   .input-field {

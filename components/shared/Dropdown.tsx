@@ -50,10 +50,10 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
 
   return (
     <Select onValueChange={onChangeHandler} defaultValue={value}>
-      <SelectTrigger className="select-field">
-        <SelectValue placeholder="Category" />
+      <SelectTrigger className="select-field rounded-xl border border-gray-200">
+        <SelectValue placeholder="Categoria" className="placeholder:text-gray-500" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="rounded-xl border border-gray-200">
         {categories.length > 0 &&
           categories.map((category) => (
             <SelectItem
@@ -66,26 +66,26 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
           ))}
         <AlertDialog>
           <AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 focus:text-primary-500">
-            Open
+            Abierto
           </AlertDialogTrigger>
-          <AlertDialogContent className="bg-white">
+          <AlertDialogContent className="bg-white rounded-xl border border-gray-200">
             <AlertDialogHeader>
-              <AlertDialogTitle>New Category</AlertDialogTitle>
+              <AlertDialogTitle>Nueva Category</AlertDialogTitle>
               <AlertDialogDescription>
                 <Input
                   type="text"
-                  placeholder="Category Name"
+                  placeholder="Nombre de la categoria"
                   className="input-field mt-3"
                   onChange={(e) => setNewCategory(e.target.value)}
                 />
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel>Cancelar</AlertDialogCancel>
               <AlertDialogAction
                 onClick={() => startTransition(handleAddCategory)}
               >
-                Agragar
+                Agregar
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
