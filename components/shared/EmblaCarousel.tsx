@@ -80,6 +80,7 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
                 new Date(b.createdAt).getTime() -
                 new Date(a.createdAt).getTime()
             )
+            .slice(0, 5)
             .map((event, index) => (
               <div className="embla__slide" key={index}>
                 <div className="embla__slide__number">

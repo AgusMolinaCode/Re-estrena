@@ -18,10 +18,13 @@ const page = async ({ searchParams }: SearchParamProps) => {
   });
   return (
     <div>
+      <div className="2xl:px-14">
+
       <h1 className="font-bold text-4xl py-6">Coleccion</h1>
       <div className="flex w-full flex-col gap-5 md:flex-row max-w-xl">
         <Search placeholder="Buscar publicaciones..." />
         <CategoryFilter />
+      </div>
       </div>
 
       <Collection

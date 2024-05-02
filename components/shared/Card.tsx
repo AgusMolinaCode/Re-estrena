@@ -19,40 +19,52 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
 
   const isEventCreator = userId === event.organizer._id.toString();
 
- 
+  const truncate = (str: string, n: number) => {
+    return str.length > n ? str.substr(0, n - 1) + "..." : str;
+  };
 
   return (
     <div>
       <div>
         <div className="grid-cols-3">
-          <div className="">
+          <div className="bg-[#F6F6F6] rounded-3xl relative">
             <Link href={`/publicaciones/${event._id}`}>
               <Image
                 src={event.imageUrl}
                 alt={event.title}
                 width={500}
                 height={500}
-                className="h-[500px] w-[500px] object-center rounded-3xl cursor-pointer"
+                className="h-[500px] w-[500px] object-center rounded-3xl cursor-pointer "
               />
             </Link>
+
+            <div className="absolute bottom-1 left-2">
+              {isEventCreator && !hidePrice && (
+                <div className="my-3">
+                  <Link href={`/publicaciones/${event._id}/update`}>
+                    <span className="text-[#542b17] text-lg bg-orange-200 p-1 rounded-lg border border-orange-300">
+                      Editar
+                    </span>
+                  </Link>
+                  {"  -  "}
+                  <DeleteConfirmation eventId={event._id} />
+                </div>
+              )}
+            </div>
           </div>
 
-          {isEventCreator && !hidePrice && (
-            <div>
-              <Link href={`/publicaciones/${event._id}/update`}>
-                <span className="bg-blue-500 p-1 px-3 rounded-3xl">Edit</span>
-              </Link>
-
-              <DeleteConfirmation eventId={event._id} />
-            </div>
-          )}
-
           <div>
-            <h3>{event.title}</h3>
-            <p>{event.description}</p>
+            <h3 className="text-xl">{event.title}</h3>
+            <p className="text-gray-500">
+              {truncate(event.description as string, 100)}
+            </p>
             <p>{formatDateTime(event.startDateTime).dateTime}</p>
-            {!hidePrice && <p>{event.price}</p>}
-            {event.isFree && <p>Free</p>}
+            {/* {!hidePrice && } */}
+            {event.isFree ? (
+              <p className="text-2xl">Free</p>
+            ) : (
+              <p className="text-2xl">$ {event.price} pesos</p>
+            )}
             {hasOrderLink && (
               <Link href={`/orders?eventId=${event._id}`}>
                 <p>Order</p>
