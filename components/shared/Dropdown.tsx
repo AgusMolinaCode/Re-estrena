@@ -66,11 +66,11 @@ const Dropdown = ({ value, onChangeHandler }: DropdownProps) => {
           ))}
         <AlertDialog>
           <AlertDialogTrigger className="p-medium-14 flex w-full rounded-sm py-3 pl-8 text-primary-500 hover:bg-primary-50 focus:text-primary-500">
-            Abierto
+            Nueva Categoria
           </AlertDialogTrigger>
           <AlertDialogContent className="bg-white rounded-xl border border-gray-200">
             <AlertDialogHeader>
-              <AlertDialogTitle>Nueva Category</AlertDialogTitle>
+              <AlertDialogTitle>Nueva Categoria</AlertDialogTitle>
               <AlertDialogDescription>
                 <Input
                   type="text"
