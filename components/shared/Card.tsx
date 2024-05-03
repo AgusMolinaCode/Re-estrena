@@ -58,7 +58,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
             <p className="text-gray-500">
               {truncate(event.description as string, 100)}
             </p>
-            <p>{formatDateTime(event.startDateTime).dateTime}</p>
+            {/* <p>{formatDateTime(event.startDateTime).dateTime}</p> */}
             {/* {!hidePrice && } */}
             {event.isFree ? (
               <p className="text-2xl">Free</p>
