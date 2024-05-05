@@ -34,7 +34,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
                 alt={event.title}
                 width={500}
                 height={500}
-                className="h-[550px] w-[550px] object-center rounded-3xl cursor-pointer "
+                className=" object-center rounded-3xl cursor-pointer "
               />
             </Link>
 

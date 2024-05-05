@@ -32,16 +32,16 @@ import { IEvent } from "@/lib/mongodb/database/models/event.model";
 
 type EventFormProps = {
   userId: string;
-  type: "Create" | "Update";
+  type: "Crear" | "Actualizar";
   event?: IEvent;
   eventId?: string;
 };
 
 const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
-  const [startDate, setStartDate] = useState<Date | null>(null);
+  //const [startDate, setStartDate] = useState<Date | null>(null);
   const initialValues =
-    event && type === "Update"
+    event && type === "Actualizar"
       ? {
           ...event,
         }
@@ -68,7 +68,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       uploadedImageUrl = uploadedImages[0].url;
     }
 
-    if (type === "Create") {
+    if (type === "Crear") {
       try {
         const newEvent = await createEvent({
           event: { ...values, imageUrl: uploadedImageUrl },
@@ -85,7 +85,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
       }
     }
 
-    if (type === "Update") {
+    if (type === "Actualizar") {
       if (!eventId) {
         router.back();
         return;
@@ -225,8 +225,9 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                     />
                     <Input
                       type="number"
-                      placeholder="Price"
+                      placeholder="Precio"
                       {...field}
+                      disabled={form.watch("isFree")}
                       className="p-regular-16 border-0 bg-grey-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                     />
                     <FormField
@@ -243,7 +244,12 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                                 Free Ticket
                               </label>
                               <Checkbox
-                                onCheckedChange={field.onChange}
+                                onCheckedChange={(value) => {
+                                  field.onChange(value);
+                                  if (value) {
+                                    form.setValue("price", "");
+                                  }
+                                }}
                                 checked={field.value}
                                 id="isFree"
                                 className="mr-2 h-5 w-5 border-2 border-primary-500"
@@ -336,8 +342,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           />
         </div>
 */}
-        <div className="flex flex-col gap-5 md:flex-row">
-          {/* <FormField
+        {/* <div className="flex flex-col gap-5 md:flex-row">
+          <FormField
             control={form.control}
             name="url"
             render={({ field }) => (
@@ -361,8 +367,8 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
-        </div>
+          />
+        </div> */}
 
         <Button
           type="submit"
@@ -370,7 +376,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           disabled={form.formState.isSubmitting}
           className="button col-span-2 w-full"
         >
-          {form.formState.isSubmitting ? "Submitting..." : `${type} Event `}
+          {form.formState.isSubmitting ? "En proceso..." : `${type} Publicacion`}
         </Button>
       </form>
     </Form>

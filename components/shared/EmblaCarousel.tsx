@@ -85,21 +85,21 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
               <div className="embla__slide" key={index}>
                 <div className="embla__slide__number">
                   <li className="flex justify-center">
-                    <div className="rounded-lg">
+                    <div className="rounded-lg relative">
                       <Link href={`/publicaciones/${event._id}`}>
                         <div>
                           <Image
                             src={event.imageUrl}
                             alt={event.title}
-                            width={400}
-                            height={400}
-                            className="rounded-t-lg h-[26rem]"
+                            width={500}
+                            height={500}
+                            className="rounded-t-lg object-center  cursor-pointer"
                           />
-                        </div>
-                        <div className="p-4">
-                          <h3 className="text-xl font-bold text-center">
-                            {event.title}
-                          </h3>
+                          <div className="p-4 absolute bottom-0">
+                            <h3 className="text-xl font-bold text-center">
+                              {event.title}
+                            </h3>
+                          </div>
                         </div>
                       </Link>
                     </div>

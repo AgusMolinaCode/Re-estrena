@@ -17,11 +17,11 @@ export default async function Home({ searchParams }: SearchParamProps) {
               <h1 className="text-6xl xl:text-9xl font-bold bg-gradient-to-bl from-gray-900 to-gray-600 bg-gradient-to-r inline-block text-transparent bg-clip-text">
                 Re-Estrena
               </h1>
-              <p className="text-xl my-4 md:my-6 px-2 text-gray-500 text-center max-w-xl">
-                Re-estreba es una plataforma para comprar y vender ropa de
+              <h2 className="text-xl my-4 md:my-6 px-2 text-gray-500 text-center max-w-xl">
+                Re-estrena es una plataforma para comprar y vender ropa de
                 segunda mano, donde puedes encontrar ropa de calidad a precios
                 accesibles. ¡Únete a la comunidad!
-              </p>
+              </h2>
               <Link href="/collections">
                 <button className="group relative inline-flex h-14 w-32 items-center justify-center overflow-hidden rounded-md border border-neutral-200 bg-transparent px-6 font-medium text-neutral-600 transition-all duration-100 [box-shadow:5px_5px_rgb(82_82_82)] active:translate-x-[3px] active:translate-y-[3px] active:[box-shadow:0px_0px_rgb(82_82_82)] text-2xl">
                   Ver Más!
