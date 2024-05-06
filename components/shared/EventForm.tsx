@@ -342,23 +342,16 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           />
         </div>
 */}
-        {/* <div className="flex flex-col gap-5 md:flex-row">
+        <div className="flex flex-col gap-5 md:flex-row">
           <FormField
             control={form.control}
-            name="url"
+            name="talle"
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormControl>
                   <div className="flex-center h-[54px] w-full overflow-hidden rounded-full bg-grey-50 px-4 py-2">
-                    <Image
-                      src="/assets/icons/link.svg"
-                      alt="link"
-                      width={24}
-                      height={24}
-                    />
-
                     <Input
-                      placeholder="URL"
+                      placeholder="Talle de la prenda o calzado"
                       {...field}
                       className="input-field"
                     />
@@ -368,7 +361,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
               </FormItem>
             )}
           />
-        </div> */}
+        </div>
 
         <Button
           type="submit"
@@ -376,7 +369,9 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
           disabled={form.formState.isSubmitting}
           className="button col-span-2 w-full"
         >
-          {form.formState.isSubmitting ? "En proceso..." : `${type} Publicacion`}
+          {form.formState.isSubmitting
+            ? "En proceso..."
+            : `${type} Publicacion`}
         </Button>
       </form>
     </Form>

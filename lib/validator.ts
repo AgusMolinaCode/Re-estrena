@@ -14,5 +14,5 @@ export const eventFormSchema = z.object({
   categoryId: z.string(),
   price: z.string(),
   isFree: z.boolean(),
-  talle: z.string().optional(),
+  talle: z.string().min(1, { message: "Debes seleccionar un talle" }),
 });
