@@ -239,9 +239,9 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                             <div className="flex items-center">
                               <label
                                 htmlFor="isFree"
-                                className="whitespace-nowrap pr-3 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                className="whitespace-nowrap pr-3 pt-1 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                               >
-                                Free Ticket
+                                GRATIS
                               </label>
                               <Checkbox
                                 onCheckedChange={(value) => {
