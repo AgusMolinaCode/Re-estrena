@@ -8,23 +8,18 @@ import CheckoutMercadoPago from "./CheckoutMercadoPago";
 const MercadoPagoButton = ({ event }: { event: IEvent }) => {
   const { user } = useUser();
   const userId = user?.publicMetadata.userId as string;
-  const hasEventFinished = new Date(event.endDateTime) < new Date();
 
   return (
     <div>
-      {hasEventFinished ? (
-        <p>This event has already finished</p>
-      ) : (
-        <>
-          <SignedOut>
-            <p>You need to be signed in to book this event</p>
-          </SignedOut>
+      <>
+        <SignedOut>
+          <p>You need to be signed in to book this event</p>
+        </SignedOut>
 
-          <SignedIn>
-            <CheckoutMercadoPago event={event} userId={userId} />
-          </SignedIn>
-        </>
-      )}
+        <SignedIn>
+          <CheckoutMercadoPago event={event} userId={userId} />
+        </SignedIn>
+      </>
     </div>
   );
 };
