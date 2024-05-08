@@ -26,8 +26,8 @@ const CheckoutMercadoPago = ({
     const order = {
       eventTitle: event.title,
       eventId: event._id,
-      price: event.price,
-      isFree: event.isFree,
+      price: event.price || "0",
+      isFree: event.isFree || false,
       buyerId: userId,
     };
 
