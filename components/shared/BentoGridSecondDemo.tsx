@@ -42,7 +42,7 @@ const items = [
       />
     ),
     className: "md:col-span-2",
-    link: "/collections?category=Jeans"
+    link: "/collections?category=Jean"
   },
   {
     title: "Remeras",
@@ -54,7 +54,7 @@ const items = [
       />
     ),
     className: "md:col-span-2",
-    link: "/collections?category=Remeras"
+    link: "/collections?category=Remera"
   },
   {
     title: "Camisas",
@@ -66,6 +66,6 @@ const items = [
       />
     ),
     className: "md:col-span-1",
-    link: "/collections?category=Camisas"
+    link: "/collections?category=Camisa"
   }
 ];
