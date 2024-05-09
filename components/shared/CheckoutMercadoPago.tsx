@@ -1,6 +1,8 @@
 import React from "react";
 import { IEvent } from "@/lib/mongodb/database/models/event.model";
 import { checkoutOrderMercadoPago } from "@/lib/actions/order.actions";
+import { Button } from "../ui/button";
+import Image from "next/image";
 
 const CheckoutMercadoPago = ({
   event,
@@ -36,9 +38,21 @@ const CheckoutMercadoPago = ({
 
   return (
     <form action={onCheckout}>
-      <button type="submit">
+      <Button type="submit">
+        <>
+          <Image
+            src="/assets/icons/mercado-pago.svg"
+            alt=""
+            width={40}
+            height={40}
+          />
+
+          <p className="px-2 text-lg">MercadoPago</p>
+        </>
+      </Button>
+      {/* <button type="submit">
         {event.isFree ? "Get Ticket MercadoPago" : "Buy Ticket MercadoPago"}
-      </button>
+      </button> */}
     </form>
   );
 };

@@ -3,6 +3,8 @@ import { IEvent } from "@/lib/mongodb/database/models/event.model";
 
 import { loadStripe } from "@stripe/stripe-js";
 import { checkoutOrder } from "@/lib/actions/order.actions";
+import { Button } from "../ui/button";
+import Image from "next/image";
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -36,9 +38,17 @@ const Checkout = ({ event, userId }: { event: IEvent; userId: string }) => {
 
   return (
     <form action={onCheckout} method="post">
-      <button type="submit">
-        {event.isFree ? "Get Ticket Stripe" : "Buy Ticket Stripe"}
-      </button>
+      <Button className="" type="submit">
+        <div className="flex items-center">
+          {/* <Image
+            src="/assets/icons/stripe4.png"
+            alt=""
+            width={40}
+            height={40}
+          /> */}
+          <p className="px-2 text-lg">Stripe</p>
+        </div>
+      </Button>
     </form>
   );
 };

@@ -8,6 +8,7 @@ import {
 import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
 
 const EventDetails = async ({
   params: { id },
@@ -34,51 +35,46 @@ const EventDetails = async ({
           />
 
           <div className="flex w-full flex-col gap-8 p-5 md:p-10">
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-1">
               <h2 className="h2-bold">{event.title}</h2>
+              <p className="text-gray-600">
+                by{" "}
+                <span className="">
+                  {event.organizer.firstName} {event.organizer.lastName}
+                </span>
+              </p>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-                <div className="flex gap-3">
-                  <p className="p-bold-20 rounded-full bg-green-500/10 px-5 py-2 text-green-700">
-                    {event.isFree
-                      ? "FREE"
-                      : event.price === ""
-                      ? "$0"
-                      : `$${event.price}`}
+                <div className="flex flex-col gap-3">
+                  <p className="text-blue-600 rounded-full">
+                    <Link href={`/collections?category=${event.category.name}`}>
+                      {event.category.name}
+                    </Link>
                   </p>
-                  <p className="p-medium-16 rounded-full bg-grey-500/10 px-4 py-2.5 text-grey-500">
-                    {event.category.name}
+                  <p className="text-2xl lg:text-3xl font-bold rounded-full text-green-700">
+                    {event.isFree ? (
+                      "GRATIS"
+                    ) : event.price === "" ? (
+                      "GRATIS"
+                    ) : (
+                      <>
+                        <span className="text-black">$</span>
+                        <span className="text-black">{event.price}</span>
+                        <span className="text-xl text-gray-600"> pesos</span>
+                      </>
+                    )}
                   </p>
                 </div>
-
-                <p className="p-medium-18 ml-2 mt-2 sm:mt-0">
-                  by{" "}
-                  <span className="text-primary-500">
-                    {event.organizer.firstName} {event.organizer.lastName}
-                  </span>
-                </p>
               </div>
             </div>
 
-            <CheckoutButton event={event} />
-            <MercadoPagoButton event={event} />
+            <div className="flex flex-col gap-2">
+              <MercadoPagoButton event={event} />
+              <CheckoutButton event={event} />
+            </div>
 
             <div className="flex flex-col gap-5">
-              {/* <div className='flex gap-2 md:gap-3'>
-              <Image src="/assets/icons/calendar.svg" alt="calendar" width={32} height={32} />
-              <div className="p-medium-16 lg:p-regular-20 flex flex-wrap items-center">
-                <p>
-                  {formatDateTime(event.startDateTime).dateOnly} - {' '}
-                  {formatDateTime(event.startDateTime).timeOnly}
-                </p>
-                <p>
-                  {formatDateTime(event.endDateTime).dateOnly} -  {' '}
-                  {formatDateTime(event.endDateTime).timeOnly}
-                </p>
-              </div>
-            </div> */}
-
-              <div className="p-regular-20 flex items-center gap-3">
+              <div className="p-regular-20 flex items-center gap-1">
                 <Image
                   src="/assets/icons/location.svg"
                   alt="location"
@@ -90,7 +86,12 @@ const EventDetails = async ({
             </div>
 
             <div className="flex flex-col gap-2">
-              <p className="p-bold-20 text-grey-600">What You'll Learn:</p>
+              <div className="flex items-center gap-2">
+              <p className="p-bold-20 text-grey-600">Talle:</p>
+              <p className="text-xl">{event.talle}</p>
+
+              </div>
+              <p className="p-bold-20 text-grey-600">Descripcion:</p>
               <p className="p-medium-16 lg:p-regular-18">{event.description}</p>
               <p className="p-medium-16 lg:p-regular-18 truncate text-primary-500 underline">
                 {event.url}
@@ -102,12 +103,12 @@ const EventDetails = async ({
 
       {/* EVENTS with the same category */}
       <section className="wrapper my-8 flex flex-col gap-8 md:gap-12">
-        <h2 className="h2-bold">Related Events</h2>
+        <h2 className="h2-bold">Publicaciones similares</h2>
 
         <Collection
           data={relatedEvents?.data}
-          emptyTitle="No Events Found"
-          emptyStateSubtext="Come back later"
+          emptyTitle="No se encontraron publicaciones"
+          emptyStateSubtext="Regresa mas tarde"
           collectionType="All_Events"
           limit={3}
           page={searchParams.page as string}

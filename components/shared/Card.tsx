@@ -60,14 +60,14 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
             </p>
             {/* <p>{formatDateTime(event.startDateTime).dateTime}</p> */}
             {/* {!hidePrice && } */}
-            {event.isFree ? (
-              <p className="text-2xl">Free</p>
-            ) : (
-              <p className="text-2xl">$ {event.price} pesos</p>
-            )}
+            {event.isFree
+                      ? <p className="text-2xl">GRATIS</p>
+                      : event.price === ""
+                      ? <p className="text-2xl">GRATIS</p>
+                      : `$${event.price}`}
             {hasOrderLink && (
               <Link href={`/orders?eventId=${event._id}`}>
-                <p>Order</p>
+                <p className="text-lg text-black underline">orden</p>
               </Link>
             )}
           </div>

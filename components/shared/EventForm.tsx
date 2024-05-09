@@ -230,7 +230,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                       disabled={form.watch("isFree")}
                       className="p-regular-16 border-0 bg-grey-50 outline-offset-0 focus:border-0 focus-visible:ring-0 focus-visible:ring-offset-0"
                     />
-                    <FormField
+                    {/* <FormField
                       control={form.control}
                       name="isFree"
                       render={({ field }) => (
@@ -259,7 +259,7 @@ const EventForm = ({ userId, type, event, eventId }: EventFormProps) => {
                           <FormMessage />
                         </FormItem>
                       )}
-                    />
+                    /> */}
                   </div>
                 </FormControl>
                 <FormMessage />

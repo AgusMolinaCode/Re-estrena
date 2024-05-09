@@ -13,7 +13,7 @@ const MercadoPagoButton = ({ event }: { event: IEvent }) => {
     <div>
       <>
         <SignedOut>
-          <p>You need to be signed in to book this event</p>
+          <p>Necesitas iniciar sesión para poder comprar este evento.</p>
         </SignedOut>
 
         <SignedIn>
