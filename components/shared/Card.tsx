@@ -22,7 +22,7 @@ const Card = ({ event, hasOrderLink, hidePrice }: CardProps) => {
   const truncate = (str: string, n: number) => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
-
+  console.log(event);
   return (
     <div>
       <div>
